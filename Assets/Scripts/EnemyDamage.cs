@@ -6,12 +6,12 @@ public class EnemyDamage : MonoBehaviour
 {
 
     public PlayerHealth playerHealth;
-    int damage = 1;
+    public int damage = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -20,9 +20,12 @@ public class EnemyDamage : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
+        {
             playerHealth.TakeDamage(damage);
+        }
+            
     }
 }
