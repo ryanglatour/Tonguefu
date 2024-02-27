@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UI.uss?fileID=7433441132597879392&amp;guid=fbdde6987a6966f4b9e4d993b44f6144&amp;type=3#UI" />
+    <ui:VisualElement name="Container" style="flex-grow: 1;">
+        <ui:ProgressBar value="10" high-value="10" focusable="false" name="Life" style="border-left-color: rgba(251, 0, 0, 0); border-right-color: rgba(251, 0, 0, 0); border-top-color: rgba(251, 0, 0, 0); border-bottom-color: rgba(251, 0, 0, 0); width: 35%; background-color: rgba(236, 39, 39, 0);" />
+    </ui:VisualElement>
+</ui:UXML>
