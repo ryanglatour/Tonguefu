@@ -6,7 +6,7 @@ public class EnemyDamage : MonoBehaviour
 {
 
     public PlayerHealth playerHealth;
-    public int damage = 1;
+    public float damage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class EnemyDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    
     }
 
     void OnCollisionEnter(Collision collision)
