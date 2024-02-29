@@ -23,6 +23,13 @@ public class PlayerTest : MonoBehaviour
     public bool isGrounded;
     public float jumpForce = 1f;
     
+    // Tree
+    public Transform target;
+
+    // Enemy
+    public float knockback = 20f;
+    private bool canBeHit = true;
+    private float hitCooldownTime = 0.75f;
 
     public GameObject winTextObject;
 
@@ -55,13 +62,13 @@ public class PlayerTest : MonoBehaviour
 
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         
-        Debug.Log(rb.velocity.y);
         if (rb.velocity.y < 0f && rb.velocity.y > -10f) 
 			rb.velocity += new Vector3(0f, -Physics.gravity.y * (-1.5f) * Time.deltaTime, 0f);
 
         
         if (isGrounded && movementY > 0f)
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            //rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.velocity = new Vector3(0f, jumpForce, 0f);
             //rb.AddForce(Vector3.up * jumpForce);
 
 
@@ -85,6 +92,45 @@ public class PlayerTest : MonoBehaviour
         // Record last Movement
         if (movementX != 0)
             lastMovement = movementX;
+
+    }
+
+    // Hit cooldown
+     IEnumerator HitCooldown()
+    {
+        // Disable knockback for the specified duration
+        canBeHit = false;
+
+        // Wait for the cooldown duration
+        yield return new WaitForSeconds(hitCooldownTime);
+
+        // Enable knockback again
+        canBeHit = true;
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.CompareTag("Enemy") && canBeHit) {
+            StartCoroutine(HitCooldown());
+            Debug.Log("hit");
+
+            Vector3 direction = (transform.position - other.transform.position).normalized;
+
+            Debug.Log(direction);
+
+            // Handle x knockback
+            if (direction.x < 0) 
+                target.transform.Rotate(0.0f, -direction.x * knockback, 0.0f);
+            else
+                target.transform.Rotate(0.0f, -direction.x * knockback, 0.0f);
+            
+            // Handle y knockback
+            rb.velocity = Vector3.zero;
+            rb.AddForce(Vector3.up * knockback * direction.y * 0.35f);
+
+            
+                
+                
+        }
     }
 
 
