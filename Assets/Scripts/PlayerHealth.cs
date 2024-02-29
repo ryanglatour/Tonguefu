@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public float health;
-    public float maxhealth = 10;
+    public float maxhealth = 5;
     public Sprite heart;
     public Image[] hearts;
     // Start is called before the first frame update
@@ -20,6 +20,14 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+    }
+
+    public void Heal(float heal)
+    {
+        if((health+heal) > maxhealth)
+            health = maxhealth;
+        else
+            health += heal;
     }
 
     void Update()
