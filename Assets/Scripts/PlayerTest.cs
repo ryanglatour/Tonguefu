@@ -11,6 +11,8 @@ public class PlayerTest : MonoBehaviour
     // Rigidbody of the player.
     private Rigidbody rb; 
 
+    public PlayerHealth playerHealth;
+
     // Player model
     public Transform playerModel;
     float lastMovement;
@@ -111,6 +113,7 @@ public class PlayerTest : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Enemy") && canBeHit) {
             StartCoroutine(HitCooldown());
+            playerHealth.TakeDamage(1);
             Debug.Log("hit");
 
             Vector3 direction = (transform.position - other.transform.position).normalized;
