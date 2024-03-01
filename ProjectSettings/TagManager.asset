@@ -8,6 +8,7 @@ TagManager:
   - PushCenter
   - Floor
   - Enemy
+  - Frog
   layers:
   - Default
   - TransparentFX
