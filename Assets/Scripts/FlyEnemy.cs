@@ -18,11 +18,13 @@ public class FlyEnemy : MonoBehaviour
 
     private bool lastLeft = true;
 
+    private Transform childObject;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        childObject = transform.GetChild(0);
     }
 
     // Update is called once per frame
@@ -32,11 +34,16 @@ public class FlyEnemy : MonoBehaviour
 
         // If player is not in zone
         if (!inZone) {
-            /*direction = (transform.position - spawn.transform.position).normalized;
+            direction = transform.position - spawn.transform.position;
+            float distance = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(spawn.transform.position.x, 0f, spawn.transform.position.z));
             
+            float angle = Vector3.Angle(transform.forward, spawn.transform.position);
 
-            //Debug.Log(direction.x + " z: " + direction.z);
-            
+            Debug.Log(angle + " distance: " + distance);
+
+            if (angle < 90f && distance > 1.5f) flyLeft();
+            else if (angle > 90f && distance > 1.5f) flyRight();
+            /*
             // Fly towards player horizontally
             if (direction.x / direction.z < -.01f) {
                 flyRight();
@@ -46,14 +53,14 @@ public class FlyEnemy : MonoBehaviour
                 flyLeft();
                 //transform.rotation = Quaternion.Euler(0f, - 90f, 0f);
             }
-            
+            */
             if (transform.position.y > spawn.transform.position.y){
                 flyDown();
             }
             else if (transform.position.y < spawn.transform.position.y - 0.5f) {
                 flyUp();
             }
-            */
+            
             return;
         }
          
@@ -84,7 +91,7 @@ public class FlyEnemy : MonoBehaviour
     void flyLeft() {
         //transform.rotation = Quaternion.Euler(0f, transform.rotation.y + 90f, 0f);
         transform.RotateAround(new Vector3(0f, transform.position.y, 0f), Vector3.up, 20 * Time.deltaTime);
-        if (lastLeft == false) transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
+        if (lastLeft == false) childObject.transform.eulerAngles = new Vector3(0, childObject.transform.eulerAngles.y + 180, 0);
         lastLeft = true;
         //Debug.Log("left");
     }
@@ -92,7 +99,7 @@ public class FlyEnemy : MonoBehaviour
     void flyRight() {
         //transform.rotation = Quaternion.Euler(0f, transform.rotation.y - 90f, 0f);
         transform.RotateAround(new Vector3(0f, transform.position.y, 0f), Vector3.up, -20 * Time.deltaTime);
-        if (lastLeft == true) transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
+        if (lastLeft == true) childObject.transform.eulerAngles = new Vector3(0, childObject.transform.eulerAngles.y + 180, 0);
         lastLeft = false;
         //Debug.Log("right");
     }

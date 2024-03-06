@@ -17,7 +17,7 @@ public class Zone : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("enter");
+        //Debug.Log("enter");
         if (other.gameObject.CompareTag("Player")) {
             foreach (Transform childTransform in this.transform) {
                 FlyEnemy flyEnemyComponent = childTransform.GetComponent<FlyEnemy>();
@@ -30,7 +30,7 @@ public class Zone : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other) {
-        Debug.Log("exit");
+        //Debug.Log("exit");
         if (other.gameObject.CompareTag("Player")) {
             foreach (Transform childTransform in this.transform) {
                 FlyEnemy flyEnemyComponent = childTransform.GetComponent<FlyEnemy>();
