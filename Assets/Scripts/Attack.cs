@@ -9,13 +9,38 @@ public class Attack : MonoBehaviour
     public MeshRenderer passiveSword;
 
     private bool swinging = false;
+    private bool canSwing = true;
      void Update() {
 
-         if (Mouse.current.leftButton.wasPressedThisFrame) {
+         if (Mouse.current.leftButton.wasPressedThisFrame && canSwing) {
             
              StartCoroutine(SwingTime());
+             StartCoroutine(SwingCooldown());
+             StartCoroutine(AnimateSwing());
              Debug.Log("click" + swinging);
          }
+     }
+
+     IEnumerator AnimateSwing()
+     {
+        activeSword.enabled = true;
+        passiveSword.enabled = false;
+
+        yield return new WaitForSeconds(0.2f);
+
+        activeSword.enabled = false;
+        passiveSword.enabled = true;
+
+     }
+
+     IEnumerator SwingCooldown()
+     {
+         // disable swinging
+         canSwing = false;
+
+         yield return new WaitForSeconds(0.3f);
+
+         canSwing = true;
      }
 
      // Hit cooldown
@@ -23,16 +48,13 @@ public class Attack : MonoBehaviour
     {
         // Disable knockback for the specified duration
         swinging = true;
-        activeSword.enabled = true;
-        passiveSword.enabled = false;
+        
 
         // Wait for the cooldown duration
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.05f);
 
         //
         swinging = false;
-        activeSword.enabled = false;
-        passiveSword.enabled = true;
     }
 
      private void OnTriggerEnter(Collider other) {

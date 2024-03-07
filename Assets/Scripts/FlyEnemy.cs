@@ -20,6 +20,10 @@ public class FlyEnemy : MonoBehaviour
 
     private Transform childObject;
 
+    public bool lethargic = false;
+
+    public float upSpeed = 1f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +34,17 @@ public class FlyEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lethargic) {
+            if (transform.position.y > spawn.transform.position.y){
+                flyDown();
+            }
+            else if (transform.position.y < spawn.transform.position.y - 0.5f) {
+                flyUp();
+            }
+
+            return;
+        }
+
         MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
 
         // If player is not in zone
@@ -39,7 +54,7 @@ public class FlyEnemy : MonoBehaviour
             
             float angle = Vector3.Angle(transform.forward, spawn.transform.position);
 
-            Debug.Log(angle + " distance: " + distance);
+            //Debug.Log(angle + " distance: " + distance);
 
             if (angle < 90f && distance > 1.5f) flyLeft();
             else if (angle > 90f && distance > 1.5f) flyRight();
@@ -90,7 +105,7 @@ public class FlyEnemy : MonoBehaviour
 
     void flyLeft() {
         //transform.rotation = Quaternion.Euler(0f, transform.rotation.y + 90f, 0f);
-        transform.RotateAround(new Vector3(0f, transform.position.y, 0f), Vector3.up, 20 * Time.deltaTime);
+        transform.RotateAround(new Vector3(0f, transform.position.y, 0f), Vector3.up, 30 * Time.deltaTime);
         if (lastLeft == false) childObject.transform.eulerAngles = new Vector3(0, childObject.transform.eulerAngles.y + 180, 0);
         lastLeft = true;
         //Debug.Log("left");
@@ -98,19 +113,21 @@ public class FlyEnemy : MonoBehaviour
 
     void flyRight() {
         //transform.rotation = Quaternion.Euler(0f, transform.rotation.y - 90f, 0f);
-        transform.RotateAround(new Vector3(0f, transform.position.y, 0f), Vector3.up, -20 * Time.deltaTime);
+        transform.RotateAround(new Vector3(0f, transform.position.y, 0f), Vector3.up, -30 * Time.deltaTime);
         if (lastLeft == true) childObject.transform.eulerAngles = new Vector3(0, childObject.transform.eulerAngles.y + 180, 0);
         lastLeft = false;
         //Debug.Log("right");
     }
 
     void flyUp() {
-        rb.AddForce(Vector3.up * 0.4f);
+        //rb.AddForce(Vector3.up * 0.1f * upSpeed);
+        rb.velocity = new Vector3(0f, (1f), 0f);
         //Debug.Log("up");
     }
 
     void flyDown() {
-        rb.AddForce(Vector3.up * -0.4f);
+        //rb.AddForce(Vector3.up * -0.1f * upSpeed);
+        rb.velocity = new Vector3(0f, (-1f), 0f);
         //Debug.Log("down");
     }
 }

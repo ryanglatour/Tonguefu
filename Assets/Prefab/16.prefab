@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7308784705506189967}
   m_Layer: 7
   m_Name: 16
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8679722021483571535}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.672, z: 0}
-  m_LocalScale: {x: 32, y: 1.5, z: 32}
+  m_LocalScale: {x: 480, y: 15, z: 480}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb191d4190ec9384c9f73a71b4c4dd51, type: 2}
+  - {fileID: 2100000, guid: 384820ad5efcaaf438f69d230edd42de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

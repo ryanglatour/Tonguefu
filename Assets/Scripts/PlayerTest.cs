@@ -9,7 +9,7 @@ using TMPro;
 public class PlayerTest : MonoBehaviour
 {
     // Rigidbody of the player.
-    private Rigidbody rb; 
+    public Rigidbody rb; 
 
     public PlayerHealth playerHealth;
 
@@ -24,6 +24,8 @@ public class PlayerTest : MonoBehaviour
     // Jump
     public bool isGrounded;
     public float jumpForce = 1f;
+    public LayerMask floorLayer; 
+    private float mayJump;
     
     // Tree
     public Transform target;
@@ -41,7 +43,6 @@ public class PlayerTest : MonoBehaviour
     {
         winTextObject.SetActive(false);
         // Get and store the Rigidbody component attached to the player.
-        rb = GetComponent<Rigidbody>();
 
     }
  
@@ -62,13 +63,19 @@ public class PlayerTest : MonoBehaviour
     {
         // JUMP
 
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
-        
-        if (rb.velocity.y < 0f && rb.velocity.y > -10f) 
-			rb.velocity += new Vector3(0f, -Physics.gravity.y * (-1.5f) * Time.deltaTime, 0f);
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, floorLayer)) isGrounded = true;
+        else isGrounded = false;
+
+        if (isGrounded) mayJump = 0.15f;
+        else mayJump -= Time.deltaTime;
 
         
-        if (isGrounded && movementY > 0f)
+        if (rb.velocity.y < 0f && rb.velocity.y > -10f) rb.velocity += new Vector3(0f, -Physics.gravity.y * (-1.7f) * Time.deltaTime, 0f);
+
+
+        
+        if (mayJump > 0f && movementY > 0f)
             //rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             rb.velocity = new Vector3(0f, jumpForce, 0f);
             //rb.AddForce(Vector3.up * jumpForce);
@@ -128,14 +135,31 @@ public class PlayerTest : MonoBehaviour
             
             // Handle y knockback
             rb.velocity = Vector3.zero;
-            rb.AddForce(Vector3.up * knockback * direction.y * 0.35f);
+            rb.AddForce(Vector3.up * knockback * direction.y * 0.35f);     
+        }
 
-            
-                
-                
+        if (other.gameObject.CompareTag("Wall")) {
+            Debug.Log("wall");
+            Vector3 direction = (transform.position - other.transform.position).normalized;
+
+            if (direction.x < 0) 
+                target.transform.Rotate(0.0f, 1f, 0.0f);
+            else
+                target.transform.Rotate(0.0f, -1f, 0.0f);
         }
     }
 
+    private void OnCollisionStay(Collision other) {
+        if (other.gameObject.CompareTag("Wall")) {
+            Debug.Log("wall");
+            Vector3 direction = (transform.position - other.transform.position).normalized;
+
+            if (direction.x < 0) 
+                target.transform.Rotate(0.0f, 1f, 0.0f);
+            else
+                target.transform.Rotate(0.0f, -1f, 0.0f);
+        }
+    }
 
 
  
