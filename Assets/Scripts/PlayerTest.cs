@@ -148,7 +148,7 @@ public class PlayerTest : MonoBehaviour
                 target.transform.Rotate(0.0f, -1f, 0.0f);
         }
     }
-
+    /*
     private void OnCollisionStay(Collision other) {
         if (other.gameObject.CompareTag("Wall")) {
             Debug.Log("wall");
@@ -161,6 +161,6 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
-
+    */
  
 }
