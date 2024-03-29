@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Frog
   - Wall
+  - GrappleTarget
   layers:
   - Default
   - TransparentFX
