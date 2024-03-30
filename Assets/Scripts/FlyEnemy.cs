@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyEnemy : MonoBehaviour
 {
-    public Transform player;
+    private Transform player;
     public Transform spawn;
 
     public Rigidbody rb;
@@ -28,6 +28,7 @@ public class FlyEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player").transform;
         childObject = transform.GetChild(0);
     }
 
