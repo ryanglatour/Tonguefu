@@ -6,16 +6,18 @@ using Unity.VisualScripting;
 
 public class Grapple : MonoBehaviour
 {
-    public GameObject hookPrefab; // Assign your grappling hook prefab in the inspector
-    public Transform shootPoint; // Assign the point from which the hook shoots
-    public float speed = 10f; // Speed at which the player is pulled towards the target
+    public GameObject hookPrefab; 
+    public Transform shootPoint; 
     public Transform Tree;
+    public PlayerHealth playerHealth;
 
     private GameObject currentHook;
     private Transform targetObject;
     private LineRenderer lr;
     private Rigidbody rb;
     private float movementX;
+    private GameObject ragdollModel;
+    private bool canHook = true;
 
     void OnMove(InputValue movementValue)
     {
@@ -34,12 +36,27 @@ public class Grapple : MonoBehaviour
     void Update()
     {
         Debug.Log(rb.velocity.y);
-        if (Input.GetMouseButtonDown(1)) // Change 0 to 1 for right click, if preferred
+        if (Input.GetMouseButtonDown(1) && canHook) 
         {
             if (currentHook != null) Destroy(currentHook);
             ShootHook();
         }
-        if (currentHook != null)
+        // Pull dead enemy
+        if (ragdollModel != null)
+        {
+            ragdollModel.transform.position = Vector3.MoveTowards(ragdollModel.transform.position, transform.position - new Vector3(0f, 0.5f, 0f), 0.1f);
+            ragdollModel.transform.Rotate(5f, 5f, 0f);
+            lr.SetPosition(0, shootPoint.position);
+            lr.SetPosition(1, ragdollModel.transform.position);
+            if (Vector3.Distance(shootPoint.position, ragdollModel.transform.position) < 1.5f)
+            {
+                Destroy(currentHook);
+                Destroy(ragdollModel);
+                playerHealth.TakeDamage(1);
+            }
+            
+        }
+        else if (currentHook != null)
         {
             
             float distanceX = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(targetObject.position.x, 0f, targetObject.position.z));
@@ -63,6 +80,14 @@ public class Grapple : MonoBehaviour
         }
     }
 
+    IEnumerator swallow()
+    {
+        canHook = false;
+        yield return new WaitForSeconds(0.4f);
+        canHook = true;
+
+    }
+
     void ShootHook()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -70,7 +95,27 @@ public class Grapple : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 13f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
-            
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                if (currentHook != null)
+                {
+                    return;
+                }
+                // Kill enemy and spawn ragdoll
+                ragdollModel = Instantiate(hit.collider.transform.Find("model").gameObject, hit.collider.transform.position, hit.collider.transform.rotation);
+                
+                Destroy(hit.collider.gameObject);
+
+                // Create hook effect
+                currentHook = Instantiate(hookPrefab, shootPoint.position, Quaternion.identity);
+                lr = currentHook.GetComponent<LineRenderer>();
+                lr.SetPosition(0, shootPoint.position);
+                lr.SetPosition(1, ragdollModel.transform.position);
+
+                StartCoroutine(swallow());
+                
+            }
+
             if (hit.collider.CompareTag("GrappleTarget")) // Ensure your target has this tag
             {
                 Debug.Log("hit");
@@ -89,7 +134,7 @@ public class Grapple : MonoBehaviour
                 lr.SetPosition(1, targetObject.position);
 
                 float distanceY = Vector3.Distance(new Vector3(0f, transform.position.y, 0f), new Vector3(0f, targetObject.position.y, 0f));
-                rb.velocity += new Vector3(0f, 1.5f * distanceY, 0f);
+                if (transform.position.y < targetObject.position.y) rb.velocity += new Vector3(0f, 2f * distanceY, 0f);
 
                 // Start moving towards the target
                 //StartCoroutine(MoveTowardsTarget());
