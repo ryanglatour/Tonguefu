@@ -35,7 +35,7 @@ public class Grapple : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(rb.velocity.y);
+        
         if (Input.GetMouseButtonDown(1) && canHook) 
         {
             if (currentHook != null) Destroy(currentHook);

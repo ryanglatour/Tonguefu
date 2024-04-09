@@ -125,7 +125,7 @@ public class PlayerTest : MonoBehaviour
 
             Vector3 direction = (transform.position - other.transform.position).normalized;
 
-            Debug.Log(direction);
+            
 
             // Handle x knockback
             if (direction.x < 0) 
