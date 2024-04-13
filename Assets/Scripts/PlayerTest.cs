@@ -26,6 +26,7 @@ public class PlayerTest : MonoBehaviour
     public float jumpForce = 1f;
     public LayerMask floorLayer; 
     private float mayJump;
+    public Collider cube;
     
     // Tree
     public Transform target;
@@ -62,9 +63,15 @@ public class PlayerTest : MonoBehaviour
     private void FixedUpdate() 
     {
         // JUMP
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, floorLayer)) isGrounded = true;
+        Vector3 left = new Vector3(cube.bounds.min.x, cube.bounds.center.y, cube.bounds.center.z);
+        Vector3 right = new Vector3(cube.bounds.max.x, cube.bounds.center.y, cube.bounds.center.z);
+       
+        bool leftGrounded = Physics.Raycast(left, Vector3.down, 0.6f, floorLayer);
+        bool rightGrounded = Physics.Raycast(right, Vector3.down, 0.6f, floorLayer);
+        bool centerGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, floorLayer);
+        
+        //RaycastHit hit;
+        if (leftGrounded || rightGrounded || centerGrounded) isGrounded = true;
         else isGrounded = false;
 
         if (isGrounded) mayJump = 0.15f;
@@ -148,7 +155,7 @@ public class PlayerTest : MonoBehaviour
                 target.transform.Rotate(0.0f, -1f, 0.0f);
         }
     }
-    /*
+    
     private void OnCollisionStay(Collision other) {
         if (other.gameObject.CompareTag("Wall")) {
             Debug.Log("wall");
@@ -161,6 +168,6 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
-    */
+    
  
 }

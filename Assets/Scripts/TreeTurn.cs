@@ -20,7 +20,8 @@ public class TreeTurn : MonoBehaviour
  
     void FixedUpdate()
     {
-        transform.Rotate(0.0f, movementX * speed, 0.0f);
+        if (movementX > 0.4f) transform.Rotate(0.0f, speed, 0.0f);
+        else if (movementX < -0.4f) transform.Rotate(0.0f, -speed, 0.0f);
     }
 }
 
