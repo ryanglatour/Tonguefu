@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
 public class ChangeScene : MonoBehaviour
 {
+    public float hi;
     FadeOut fade;
+    public string sceneName;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +26,7 @@ public class ChangeScene : MonoBehaviour
     {
         fade.Fade();
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Boss1");
+        SceneManager.LoadScene(sceneName);
     }
 
     private void OnTriggerEnter(Collider other) {
