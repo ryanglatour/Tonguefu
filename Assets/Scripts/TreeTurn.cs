@@ -22,6 +22,10 @@ public class TreeTurn : MonoBehaviour
     {
         if (movementX > 0.4f) transform.Rotate(0.0f, speed, 0.0f);
         else if (movementX < -0.4f) transform.Rotate(0.0f, -speed, 0.0f);
+
+
+        
+
     }
 }
 

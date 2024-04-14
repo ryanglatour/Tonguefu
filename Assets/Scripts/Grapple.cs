@@ -134,7 +134,7 @@ public class Grapple : MonoBehaviour
                 lr.SetPosition(1, targetObject.position);
 
                 float distanceY = Vector3.Distance(new Vector3(0f, transform.position.y, 0f), new Vector3(0f, targetObject.position.y, 0f));
-                if (transform.position.y < targetObject.position.y) rb.velocity += new Vector3(0f, 2f * distanceY, 0f);
+                if (transform.position.y < targetObject.position.y) rb.velocity += new Vector3(0f, 1.5f * distanceY, 0f);
 
                 // Start moving towards the target
                 //StartCoroutine(MoveTowardsTarget());
