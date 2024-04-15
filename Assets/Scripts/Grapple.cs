@@ -71,10 +71,10 @@ public class Grapple : MonoBehaviour
             
             if (direction.y > 0 && rb.velocity.y < 7f)
             {
-                rb.velocity += new Vector3(0f, 0.1f * distanceY, 0f);
+                rb.velocity += new Vector3(0f, 7f * distanceY * Time.deltaTime, 0f);
             }
-            if (direction.x < 0f) Tree.Rotate(0.0f, 0.015f * (distanceX * distanceX), 0.0f);
-            if (direction.x > 0f) Tree.Rotate(0.0f, -0.015f * (distanceX * distanceX), 0.0f);
+            if (direction.x < 0f) Tree.Rotate(0.0f, 1f * (distanceX * distanceX) * Time.deltaTime, 0.0f);
+            if (direction.x > 0f) Tree.Rotate(0.0f, -1f * (distanceX * distanceX) * Time.deltaTime, 0.0f);
 
             
         }

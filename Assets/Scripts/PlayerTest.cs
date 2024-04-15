@@ -34,7 +34,9 @@ public class PlayerTest : MonoBehaviour
     // Enemy
     public float knockback = 20f;
     private bool canBeHit = true;
+    private bool beingPushed = false;
     private float hitCooldownTime = 0.75f;
+    private Transform enemy;
 
     public GameObject winTextObject;
 
@@ -87,6 +89,18 @@ public class PlayerTest : MonoBehaviour
             rb.velocity = new Vector3(0f, jumpForce, 0f);
             //rb.AddForce(Vector3.up * jumpForce);
 
+        if (beingPushed)
+        {
+            Vector3 direction = (transform.position - enemy.transform.position).normalized;
+
+            // Handle x knockback
+            if (direction.x < 0)
+                target.transform.Rotate(0.0f, -direction.x * knockback * Time.deltaTime, 0.0f);
+            else
+                target.transform.Rotate(0.0f, -direction.x * knockback * Time.deltaTime, 0.0f);
+
+            
+        }
 
 
         // PLAYER MODEL
@@ -114,35 +128,45 @@ public class PlayerTest : MonoBehaviour
     // Hit cooldown
      IEnumerator HitCooldown()
     {
-        // Disable knockback for the specified duration
+        // Disable being for the specified duration
         canBeHit = false;
 
         // Wait for the cooldown duration
         yield return new WaitForSeconds(hitCooldownTime);
 
-        // Enable knockback again
+        // Enable being hit again
         canBeHit = true;
+    }
+
+    // Hit cooldown
+    IEnumerator KnockbackTimer()
+    {
+        beingPushed = true;
+
+        // Wait for the cooldown duration
+        yield return new WaitForSeconds(0.25f);
+
+        // Disable knockback
+        beingPushed = false;
     }
 
     private void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Enemy") && canBeHit) {
             StartCoroutine(HitCooldown());
+            StartCoroutine(KnockbackTimer());
             playerHealth.TakeDamage(1);
             Debug.Log("hit");
 
-            Vector3 direction = (transform.position - other.transform.position).normalized;
-
             
+            enemy = other.transform;
 
-            // Handle x knockback
-            if (direction.x < 0) 
-                target.transform.Rotate(0.0f, -direction.x * knockback, 0.0f);
-            else
-                target.transform.Rotate(0.0f, -direction.x * knockback, 0.0f);
-            
+
             // Handle y knockback
+            Vector3 direction = (transform.position - enemy.transform.position).normalized;
             rb.velocity = Vector3.zero;
-            rb.AddForce(Vector3.up * knockback * direction.y * 0.35f);     
+            rb.AddForce(Vector3.up * knockback * direction.y * 0.35f);
+
+
         }
 
         if (other.gameObject.CompareTag("Wall")) {

@@ -121,14 +121,17 @@ public class FlyEnemy : MonoBehaviour
     }
 
     void flyUp() {
-        //rb.AddForce(Vector3.up * 0.1f * upSpeed);
-        rb.velocity = new Vector3(0f, (2f), 0f);
-        //Debug.Log("up");
+        if (inZone)
+            rb.velocity = new Vector3(0f, (2f), 0f);
+        else
+            rb.velocity = new Vector3(0f, (0.5f), 0f);
+        
     }
 
     void flyDown() {
-        //rb.AddForce(Vector3.up * -0.1f * upSpeed);
-        rb.velocity = new Vector3(0f, (-2f), 0f);
-        //Debug.Log("down");
+        if (inZone)
+            rb.velocity = new Vector3(0f, (-2f), 0f);
+        else
+            rb.velocity = new Vector3(0f, (-0.5f), 0f);
     }
 }
