@@ -10,6 +10,7 @@ public class Grapple : MonoBehaviour
     public Transform shootPoint; 
     public Transform Tree;
     public PlayerHealth playerHealth;
+    public AudioClip slurp;
 
     private GameObject currentHook;
     private Transform targetObject;
@@ -71,10 +72,10 @@ public class Grapple : MonoBehaviour
             
             if (direction.y > 0 && rb.velocity.y < 7f)
             {
-                rb.velocity += new Vector3(0f, 7f * distanceY * Time.deltaTime, 0f);
+                rb.velocity += new Vector3(0f, 8f * distanceY * Time.deltaTime, 0f);
             }
-            if (direction.x < 0f) Tree.Rotate(0.0f, 1f * (distanceX * distanceX) * Time.deltaTime, 0.0f);
-            if (direction.x > 0f) Tree.Rotate(0.0f, -1f * (distanceX * distanceX) * Time.deltaTime, 0.0f);
+            if (direction.x < 0f) Tree.Rotate(0.0f, 1.25f * (distanceX * distanceX) * Time.deltaTime, 0.0f);
+            if (direction.x > 0f) Tree.Rotate(0.0f, -1.25f * (distanceX * distanceX) * Time.deltaTime, 0.0f);
 
             
         }
@@ -101,6 +102,7 @@ public class Grapple : MonoBehaviour
                 {
                     return;
                 }
+                AudioSource.PlayClipAtPoint(slurp, transform.position, 1f);
                 // Kill enemy and spawn ragdoll
                 ragdollModel = Instantiate(hit.collider.transform.Find("model").gameObject, hit.collider.transform.position, hit.collider.transform.rotation);
                 
@@ -118,6 +120,7 @@ public class Grapple : MonoBehaviour
 
             if (hit.collider.CompareTag("GrappleTarget")) // Ensure your target has this tag
             {
+                AudioSource.PlayClipAtPoint(slurp, transform.position, 1f);
                 Debug.Log("hit");
                 targetObject = hit.collider.transform;
                 //if (Vector3.Distance(transform.position, targetObject.position) > 8f) return;

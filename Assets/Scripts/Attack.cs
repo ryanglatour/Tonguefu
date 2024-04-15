@@ -10,10 +10,14 @@ public class Attack : MonoBehaviour
 
     private bool swinging = false;
     private bool canSwing = true;
-     void Update() {
+
+    public AudioClip hit;
+    public AudioClip miss;
+
+    void Update() {
 
          if (Mouse.current.leftButton.wasPressedThisFrame && canSwing) {
-            
+            AudioSource.PlayClipAtPoint(miss, transform.position, 1f);
              StartCoroutine(SwingTime());
              StartCoroutine(SwingCooldown());
              StartCoroutine(AnimateSwing());
@@ -59,14 +63,17 @@ public class Attack : MonoBehaviour
 
      private void OnTriggerEnter(Collider other) {
          if (swinging && other.CompareTag("Enemy")) {
-             Destroy(other.gameObject);
+            AudioSource.PlayClipAtPoint(hit, transform.position, 1f);
+            Destroy(other.gameObject);
+            
          }
      }
      
 
      private void OnTriggerStay(Collider other) {
          if (swinging && other.CompareTag("Enemy")) {
-             Destroy(other.gameObject);
+            AudioSource.PlayClipAtPoint(hit, transform.position, 1f);
+            Destroy(other.gameObject);
          }
      }
 }

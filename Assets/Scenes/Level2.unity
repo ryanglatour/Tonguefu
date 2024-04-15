@@ -3148,6 +3148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSword: {fileID: 2033269352}
   passiveSword: {fileID: 850013655}
+  hit: {fileID: 8300000, guid: 95d9c148d5664484dae959bcd9dfafab, type: 3}
+  miss: {fileID: 8300000, guid: 7c1ca763c525d3d409bd6c38bac0524a, type: 3}
 --- !u!114 &195847254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28324,6 +28326,7 @@ MonoBehaviour:
   shootPoint: {fileID: 850013654}
   Tree: {fileID: 1925829737}
   playerHealth: {fileID: 1889237981}
+  slurp: {fileID: 8300000, guid: 62e199d7754d4b94791882cfb0e930d2, type: 3}
 --- !u!65 &1889237980
 BoxCollider:
   m_ObjectHideFlags: 0
