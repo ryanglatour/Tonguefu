@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    private string sceneName = "Level1"; // Name of the scene to load
+    private string sceneName = "Level3"; // Name of the scene to load
 
     public void StartGame()
     {

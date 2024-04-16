@@ -63,7 +63,7 @@ public class Grapple : MonoBehaviour
             float distanceX = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(targetObject.position.x, 0f, targetObject.position.z));
             float distanceY = Vector3.Distance(new Vector3(0f, transform.position.y, 0f), new Vector3(0f, targetObject.position.y, 0f));
             Vector3 direction = (targetObject.position - transform.position);
-            if (distanceX > 8f || distanceX < -8f) Destroy(currentHook);
+            if (distanceX > 9f || distanceX < -9f) Destroy(currentHook);
 
             lr.SetPosition(0, shootPoint.position);
             lr.SetPosition(1, targetObject.position);
@@ -94,7 +94,7 @@ public class Grapple : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 13f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(ray, out hit, 12f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
             if (hit.collider.CompareTag("Enemy"))
             {
