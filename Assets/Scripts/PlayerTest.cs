@@ -38,13 +38,12 @@ public class PlayerTest : MonoBehaviour
     private float hitCooldownTime = 0.75f;
     private Transform enemy;
 
-    public GameObject winTextObject;
 
 
     // Start is called before the first frame update.
     void Start()
     {
-        winTextObject.SetActive(false);
+        //winTextObject.SetActive(false);
         // Get and store the Rigidbody component attached to the player.
 
     }
@@ -117,7 +116,7 @@ public class PlayerTest : MonoBehaviour
             playerModel.rotation = Quaternion.Euler(-90f, 0f, 90f);
         }
 
-        if (rb.position.y > 20) winTextObject.SetActive(true);
+       
 
         // Record last Movement
         if (movementX != 0)
