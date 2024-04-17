@@ -11,6 +11,11 @@ TagManager:
   - Frog
   - Wall
   - Bee
+  - Laser
+  - Walls
+  - Shield
+  - Heart
+  - Power
   layers:
   - Default
   - TransparentFX
@@ -23,7 +28,7 @@ TagManager:
   - Enemy
   - Floor
   - Ground
-  - 
+  - Lilypad
   - 
   - 
   - 
