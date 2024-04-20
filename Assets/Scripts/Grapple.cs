@@ -3,6 +3,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
+using UnityEngine.Assertions.Must;
 
 public class Grapple : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Grapple : MonoBehaviour
     private float movementX;
     private GameObject ragdollModel;
     private bool canHook = true;
+    private bool bee = true;
 
     void OnMove(InputValue movementValue)
     {
@@ -51,9 +53,15 @@ public class Grapple : MonoBehaviour
             lr.SetPosition(1, ragdollModel.transform.position);
             if (Vector3.Distance(shootPoint.position, ragdollModel.transform.position) < 1.5f)
             {
-                Destroy(currentHook);
+                
+                
+
+                if (bee == true) playerHealth.TakeDamage(1);
+                else playerHealth.Heal(1);
+                
+
                 Destroy(ragdollModel);
-                playerHealth.TakeDamage(1);
+                Destroy(currentHook);
             }
             
         }
@@ -102,6 +110,10 @@ public class Grapple : MonoBehaviour
                 {
                     return;
                 }
+                // bee or fly
+                FlyEnemy script = hit.collider.GetComponent<FlyEnemy>();
+                bee = script.bee;
+
                 AudioSource.PlayClipAtPoint(slurp, transform.position, 1f);
                 // Kill enemy and spawn ragdoll
                 ragdollModel = Instantiate(hit.collider.transform.Find("model").gameObject, hit.collider.transform.position, hit.collider.transform.rotation);

@@ -26,12 +26,12 @@ public class Pause : MonoBehaviour
             }
             else
             {
-                PauseGamne();
+                PauseGame();
             }
         }
     }
 
-    void PauseGamne()
+    void PauseGame()
     {
         menu.SetActive(true);
         Time.timeScale = 0f;
@@ -48,8 +48,15 @@ public class Pause : MonoBehaviour
     //This only works in standalone builds, doesn't work when testing in unity editor
     public void QuitGame()
     {
-        Application.Quit();
+        Time.timeScale = 1f;
+        isPaused = false;
+        SceneManager.LoadScene("Main Menu");
     }
 
-    public void ResetScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    public void ResetScene()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

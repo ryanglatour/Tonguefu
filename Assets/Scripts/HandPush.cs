@@ -39,37 +39,32 @@ public class HandPush : MonoBehaviour
             hand.position += new Vector3(0f, 0f, pushSpeed * 1.5f) * Time.deltaTime ;
             player.position += new Vector3(0f, 0f, pushSpeed) * Time.deltaTime;
         }
-        if (player.position.y < -250f && player.position.y > -1000f)
+        if (player.position.y < -100f && player.position.y > -500f)
         {
 
             winTextObject.SetActive(true);
         }
-        else if (player.position.y < -1000f && player.position.y > -2000f)
+        else if (player.position.y < -500f && player.position.y > -1250f)
         {
             winTextObject.SetActive(false);
             ryan.SetActive(true);
         }
-        else if (player.position.y < -2000f && player.position.y > -3000f)
+        else if (player.position.y < -1250f && player.position.y > -2000f)
         {
             ryan.SetActive(false);
             jack.SetActive(true);
         }
-        else if (player.position.y < -3000f && player.position.y > -4000f)
+        else if (player.position.y < -2000f && player.position.y > -2750f)
         {
             jack.SetActive(false);
             nathan.SetActive(true);
         }
-        else if (player.position.y < -4000f && player.position.y > -4500f)
+        else if (player.position.y < -2750f && player.position.y > -3500f)
         {
             nathan.SetActive(false);
-            miguel.SetActive(true);
-        }
-        else if (player.position.y < -4500f && player.position.y > -5500f)
-        {
-            miguel.SetActive(false);
             music.SetActive(true);
         }
-        else if (player.position.y < -5500f) music.SetActive(false);
+        else if (player.position.y < -3500f) music.SetActive(false);
 
     }
 

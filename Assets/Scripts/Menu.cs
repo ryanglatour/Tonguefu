@@ -5,8 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    public float spinSpeed = 2f;
+    public Transform tree;
     private string sceneName = "Level1"; // Name of the scene to load
 
+    public void Update()
+    {
+        tree.Rotate(0f, spinSpeed * Time.deltaTime, 0f);
+    }
     public void StartGame()
     {
         SceneManager.LoadScene(sceneName);
@@ -16,6 +22,11 @@ public class Menu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void HowToPlay()
+    {
+
     }
 
 }

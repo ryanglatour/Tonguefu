@@ -27,10 +27,12 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal(float heal)
     {
-        if((health+heal) > maxhealth)
-            health = maxhealth;
-        else
+        if (health < maxhealth)
+        {
             health += heal;
+            hearts[(int)health - 1].enabled = true;
+        }
+            
     }
 
     void Update()

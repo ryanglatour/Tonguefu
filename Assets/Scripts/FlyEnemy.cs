@@ -12,6 +12,8 @@ public class FlyEnemy : MonoBehaviour
     
     private Vector3 zonePosition;
 
+    public bool bee = true;
+
     public bool inZone = false;
 
     private Vector3 direction;
