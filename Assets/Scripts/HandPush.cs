@@ -18,6 +18,8 @@ public class HandPush : MonoBehaviour
     public GameObject miguel;
     public GameObject music;
 
+    public float pushSpeed;
+
     private void Start()
     {
         winTextObject.SetActive(false);
@@ -34,8 +36,8 @@ public class HandPush : MonoBehaviour
     {
         if (pushing)
         {
-            hand.position += new Vector3(0f, 0f, 0.15f);
-            player.position += new Vector3(0f, 0f, 0.1f);
+            hand.position += new Vector3(0f, 0f, pushSpeed * 1.5f) * Time.deltaTime ;
+            player.position += new Vector3(0f, 0f, pushSpeed) * Time.deltaTime;
         }
         if (player.position.y < -250f && player.position.y > -1000f)
         {
