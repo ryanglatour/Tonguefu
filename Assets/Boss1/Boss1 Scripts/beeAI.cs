@@ -22,6 +22,7 @@ public class BeeMovement : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Landing"); // Trigger the "Landing" animation
+
         }
     }
 

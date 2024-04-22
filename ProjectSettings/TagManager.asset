@@ -16,6 +16,10 @@ TagManager:
   - Shield
   - Heart
   - Power
+  - Stinger
+  - Tongue
+  - Sphere
+  - BeeW
   layers:
   - Default
   - TransparentFX
@@ -28,7 +32,7 @@ TagManager:
   - Enemy
   - Floor
   - Ground
-  - Lilypad
+  - Tongue
   - 
   - 
   - 
